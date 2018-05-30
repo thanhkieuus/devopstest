@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="common-header">
+
+    <title>Devops Test</title>
+    <!-- Bootstrap core css -->
+    <link th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" media="screen" >
+    <!--Custom style for this template -->
+    <link th:href="@{/css/styles.css}" type="text/css" rel="stylesheet" media="screen" >
+
+</head>
+
+    <div th:fragment="before-body-scripts">
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+    </div>
+
+</html>

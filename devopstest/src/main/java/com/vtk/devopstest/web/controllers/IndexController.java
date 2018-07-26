@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 	
+	public static final String INDEX_VIEW_NAME = "index";
+	
 	@RequestMapping("/")
 	public String home() {
-		return "index";
+		return INDEX_VIEW_NAME;
 	}
 	
 }

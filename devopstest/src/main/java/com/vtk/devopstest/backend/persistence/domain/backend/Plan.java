@@ -13,7 +13,7 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Plain implements Serializable {
+public class Plan implements Serializable {
 
 	/**
 	 * 
@@ -22,9 +22,9 @@ public class Plain implements Serializable {
 	
 	@Id
 	private int id;
-	private int name;
+	private String name;
 	
-	public Plain() {
+	public Plan() {
 	}
 
 	public int getId() {
@@ -35,23 +35,34 @@ public class Plain implements Serializable {
 		this.id = id;
 	}
 
-	public int getName() {
+	/**
+	 * @return the name
+	 */
+	public String getName() {
 		return name;
 	}
 
-	public void setName(int name) {
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
 		this.name = name;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + name;
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -60,16 +71,12 @@ public class Plain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Plain other = (Plain) obj;
+		Plan other = (Plan) obj;
 		if (id != other.id)
-			return false;
-		if (name != other.name)
 			return false;
 		return true;
 	}
-	
-	
-	
+
 	
 
 }

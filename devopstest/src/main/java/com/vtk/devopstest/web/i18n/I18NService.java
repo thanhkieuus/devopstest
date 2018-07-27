@@ -36,7 +36,6 @@ public class I18NService {
 	 * @return
 	 */
 	private String getMessage(String messageId, Locale local) {
-		// TODO Auto-generated method stub
 		return messageSource.getMessage(messageId, null, local);
 	}
 }

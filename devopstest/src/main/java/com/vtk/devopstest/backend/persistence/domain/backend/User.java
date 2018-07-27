@@ -18,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.validator.cfg.context.Cascadable;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -66,8 +65,8 @@ public class User implements Serializable {
 	private boolean enabled;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="plain_id")
-	private Plain plain;
+	@JoinColumn(name="plan_id")
+	private Plan plan;
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<UserRole> userRoles = new HashSet<>();
@@ -246,15 +245,15 @@ public class User implements Serializable {
 	/**
 	 * @return the plain
 	 */
-	public Plain getPlain() {
-		return plain;
+	public Plan getPlan() {
+		return plan;
 	}
 
 	/**
-	 * @param plain the plain to set
+	 * @param plan the plain to set
 	 */
-	public void setPlain(Plain plain) {
-		this.plain = plain;
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
 
 	/**

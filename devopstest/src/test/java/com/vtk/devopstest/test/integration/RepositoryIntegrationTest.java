@@ -62,7 +62,7 @@ public class RepositoryIntegrationTest {
 	
 	@Test
 	public void testCreateNewRole() throws Exception {
-		Role basicRole = createBasicRole();
+		Role basicRole = createBasicRole(BASIC_ROLE_ID, "ROLE_USER");
 		roleRepository.save(basicRole);
 		Role retrivedRole = roleRepository.findById(BASIC_ROLE_ID).orElse(null);
 		Assert.assertNotNull(retrivedRole);
@@ -77,13 +77,19 @@ public class RepositoryIntegrationTest {
 		User basicUser = createBasicUser();
 		basicUser.setPlan(basicPlan);
 		
-		Role basicRole = createBasicRole();
+		Role basicRole = createBasicRole(1, "ROLE_USER");
 		
 		Set<UserRole> userRoles = new HashSet<>();
 		UserRole userRole = new UserRole();
 		userRole.setUser(basicUser);
 		userRole.setRole(basicRole);
 		userRoles.add(userRole);
+		
+		Role basicRole2 = createBasicRole(2, "ROLE_ADMIN");
+		UserRole userRole2 = new UserRole();
+		userRole2.setUser(basicUser);
+		userRole2.setRole(basicRole2);
+		userRoles.add(userRole2);
 		
 		basicUser.getUserRoles().addAll(userRoles);
 		
@@ -102,6 +108,7 @@ public class RepositoryIntegrationTest {
 		
 		Set<UserRole> retrieveUserRoles = retriveUser.getUserRoles();
 		for (UserRole ur : retrieveUserRoles) {
+			System.out.println("******************* : " + ur);
 			Assert.assertNotNull(ur.getRole());
 			Assert.assertNotNull(ur.getRole().getId());			
 		}
@@ -125,10 +132,10 @@ public class RepositoryIntegrationTest {
 	/**
 	 * @return
 	 */
-	private Role createBasicRole() {
+	private Role createBasicRole(int id, String name) {
 		Role role = new Role();
-		role.setId(BASIC_ROLE_ID);
-		role.setName("ROLE_USER");;
+		role.setId(id);
+		role.setName(name);
 		return role;
 	}
 

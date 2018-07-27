@@ -14,14 +14,18 @@ import org.springframework.mail.SimpleMailMessage;
  *
  */
 public class SmtpMailService extends AbstractEmailService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SmtpMailService.class);
 
 	@Autowired
 	private MailSender mailSender;
-	
-	/* (non-Javadoc)
-	 * @see com.vtk.devopstest.backend.service.EmailService#sendGenericMapMessage(org.springframework.mail.SimpleMailMessage)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.vtk.devopstest.backend.service.EmailService#sendGenericMapMessage(org.
+	 * springframework.mail.SimpleMailMessage)
 	 */
 	@Override
 	public void sendGenericMapMessage(SimpleMailMessage message) {

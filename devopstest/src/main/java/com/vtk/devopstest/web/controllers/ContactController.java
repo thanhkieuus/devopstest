@@ -21,23 +21,23 @@ import com.vtk.devopstest.web.domain.frontend.FeedbackPojo;
  */
 @Controller
 public class ContactController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ContactController.class);
-	
+
 	public static final String FEEDBACK_MODEL_KEY = "feedback";
-	
+
 	public static final String CONTACT_US_VIEW_NAME = "contact/contact";
-	
+
 	@Autowired
 	EmailService emailService;
-	
-	@RequestMapping(value = "/contact", method = RequestMethod.GET )
+
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contactGet(ModelMap model) {
 		FeedbackPojo feedbackPojo = new FeedbackPojo();
 		model.addAttribute(ContactController.FEEDBACK_MODEL_KEY, feedbackPojo);
 		return ContactController.CONTACT_US_VIEW_NAME;
 	}
-	
+
 	@RequestMapping(value = "/contact", method = RequestMethod.POST)
 	public String contactPost(@ModelAttribute(ContactController.FEEDBACK_MODEL_KEY) FeedbackPojo feedback) {
 		LOG.info("********** Feedback POJO content: {}", feedback);

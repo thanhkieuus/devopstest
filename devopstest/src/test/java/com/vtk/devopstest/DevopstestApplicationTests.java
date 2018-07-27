@@ -15,8 +15,7 @@ public class DevopstestApplicationTests {
 
 	@Autowired
 	private I18NService i18NService;
-	
-	
+
 	@Test
 	public void testMessageByLocalService() {
 		String expected = "Bootstrap starter template";

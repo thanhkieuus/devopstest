@@ -19,7 +19,7 @@ import com.vtk.devopstest.backend.service.MockEmailService;
 @Profile("dev")
 @PropertySource("file:///${user.home}/devopstest/application-dev.properties")
 public class DevelopmentConfig {
-	
+
 	@Bean
 	public EmailService emailService() {
 		return new MockEmailService();

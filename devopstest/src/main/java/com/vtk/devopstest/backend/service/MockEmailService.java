@@ -12,11 +12,15 @@ import org.springframework.mail.SimpleMailMessage;
  *
  */
 public class MockEmailService extends AbstractEmailService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(MockEmailService.class);
 
-	/* (non-Javadoc)
-	 * @see com.vtk.devopstest.backend.service.EmailService#sendGenericMapMessage(org.springframework.mail.SimpleMailMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.vtk.devopstest.backend.service.EmailService#sendGenericMapMessage(org.
+	 * springframework.mail.SimpleMailMessage)
 	 */
 	@Override
 	public void sendGenericMapMessage(SimpleMailMessage message) {
@@ -24,6 +28,5 @@ public class MockEmailService extends AbstractEmailService {
 		LOG.info(message.toString());
 		LOG.debug("Email sent.");
 	}
-	
 
 }

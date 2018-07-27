@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PayloadController {
-	
+
 	private static final String PAYLAAD_VIEW_NAME = "payload/payload";
 
 	@RequestMapping("/payload")

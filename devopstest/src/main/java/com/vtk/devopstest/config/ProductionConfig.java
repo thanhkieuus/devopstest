@@ -18,7 +18,7 @@ import com.vtk.devopstest.backend.service.SmtpMailService;
 @Profile("prod")
 @PropertySource("file:///${user.home}/devopstest/application-prod.properties")
 public class ProductionConfig {
-	
+
 	@Bean
 	public EmailService emailService() {
 		return new SmtpMailService();

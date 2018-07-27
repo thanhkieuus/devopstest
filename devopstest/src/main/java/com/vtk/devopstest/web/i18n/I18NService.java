@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class I18NService {
-	
+
 	private final static Logger LOG = LoggerFactory.getLogger(I18NService.class);
-	
+
 	@Autowired
 	private MessageSource messageSource;
 

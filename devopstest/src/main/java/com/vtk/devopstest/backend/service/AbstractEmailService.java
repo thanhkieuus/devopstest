@@ -13,12 +13,13 @@ import com.vtk.devopstest.web.domain.frontend.FeedbackPojo;
  *
  */
 public abstract class AbstractEmailService implements EmailService {
-	
+
 	@Value("${default.to.address}")
 	private String defaultToAddress;
-	
+
 	/**
 	 * Create SimpleMail Message from Feedback Pojo
+	 * 
 	 * @param feedbackPojo
 	 * @return
 	 */
@@ -26,18 +27,22 @@ public abstract class AbstractEmailService implements EmailService {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(defaultToAddress);
 		message.setFrom(feedbackPojo.getEmail());
-		message.setSubject("[DevopsTest]: Feedback received from " + feedbackPojo.getFirstName() + " " + feedbackPojo.getLastName() + "!");
+		message.setSubject("[DevopsTest]: Feedback received from " + feedbackPojo.getFirstName() + " "
+				+ feedbackPojo.getLastName() + "!");
 		message.setText(feedbackPojo.getFeedback());
 		return message;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.vtk.devopstest.backend.service.EmailService#sendFeedbackEmail(com.vtk.devopstest.web.domain.frontend.FeedbackPojo)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.vtk.devopstest.backend.service.EmailService#sendFeedbackEmail(com.vtk.
+	 * devopstest.web.domain.frontend.FeedbackPojo)
 	 */
 	@Override
 	public void sendFeedbackEmail(FeedbackPojo feedbackPojo) {
-		sendGenericMapMessage(prepairSimpleMailMEssageFromFeedbackPojo(feedbackPojo));		
+		sendGenericMapMessage(prepairSimpleMailMEssageFromFeedbackPojo(feedbackPojo));
 	}
-	
 
 }

@@ -8,6 +8,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.vtk.devopstest.enums.PlansEnum;
+
 /**
  * @author VK
  *
@@ -25,6 +27,11 @@ public class Plan implements Serializable {
 	private String name;
 	
 	public Plan() {
+	}
+	
+	public Plan(PlansEnum plansEnum) {
+		this.id = plansEnum.getId();
+		this.name = plansEnum.getPlanName();
 	}
 
 	public int getId() {

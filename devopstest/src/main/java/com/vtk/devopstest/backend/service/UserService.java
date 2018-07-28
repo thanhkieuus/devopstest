@@ -8,6 +8,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vtk.devopstest.backend.persistence.domain.backend.Plan;
@@ -16,7 +17,6 @@ import com.vtk.devopstest.backend.persistence.domain.backend.UserRole;
 import com.vtk.devopstest.backend.persistence.repositories.PlanRepository;
 import com.vtk.devopstest.backend.persistence.repositories.RoleRepository;
 import com.vtk.devopstest.backend.persistence.repositories.UserRepository;
-import com.vtk.devopstest.config.SecurityConfig;
 import com.vtk.devopstest.enums.PlansEnum;
 
 /**
@@ -39,12 +39,13 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Autowired
-	SecurityConfig securityConfig; 	
-
+	BCryptPasswordEncoder passwordEncoder;
+	
 	public User createUser(User user, PlansEnum plansEnum, Set<UserRole> userRoles) {
 		
 		LOG.info("********** createUser: enter");
-		user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 
 		Plan plan = new Plan(plansEnum);
 		if (!planRepository.existsById(plansEnum.getId())) {

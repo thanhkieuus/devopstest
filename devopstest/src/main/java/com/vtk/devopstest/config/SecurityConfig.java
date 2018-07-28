@@ -3,6 +3,7 @@
  */
 package com.vtk.devopstest.config;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserSecurityService userSecurityService;
+
+	/* The encryption SALT */
+	private static final String SALT = "qwert12345qwert";
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
+	}
+
+	
 
 	@Autowired
 	UserDetailsService userDetailsService;
@@ -92,10 +103,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		LOG.info("********** configureGlobal: enter");
-		auth.userDetailsService(userSecurityService);
-		auth.authenticationProvider(authenticationProvider());
+		auth
+			.userDetailsService(userSecurityService)
+			.passwordEncoder(passwordEncoder());
 	}
-
+/*
 	@Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -104,9 +116,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
     
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
+*/	
 }

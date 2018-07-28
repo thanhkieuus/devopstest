@@ -51,7 +51,6 @@ public class RepositoryIntegrationTest {
 		Assert.assertNotNull(userRepository);
 	}
 	
-	
 	@Test
 	public void testCreateNewPlan() throws Exception {
 		Plan basicPlan = createBasicPlan(PlansEnum.BASIC);
@@ -62,11 +61,7 @@ public class RepositoryIntegrationTest {
 	
 	@Test
 	public void testCreateNewRole() throws Exception {
-<<<<<<< HEAD
-		Role basicRole = createBasicRole(BASIC_ROLE_ID, "ROLE_USER");
-=======
 		Role basicRole = createBasicRole(RolesEnum.BASIC);
->>>>>>> jpa
 		roleRepository.save(basicRole);
 		Role retrivedRole = roleRepository.findById(RolesEnum.BASIC.getId()).orElse(null);
 		Assert.assertNotNull(retrivedRole);
@@ -75,36 +70,8 @@ public class RepositoryIntegrationTest {
 	@Test
 	public void testCreateNewUser() {
 		
-		Plan basicPlan = createBasicPlan(PlansEnum.BASIC);
-		planRepository.save(basicPlan);
 		
-		User basicUser = UserUtils.createBasicUser();
-		basicUser.setPlan(basicPlan);
-		
-<<<<<<< HEAD
-		Role basicRole = createBasicRole(1, "ROLE_USER");
-=======
-		Role basicRole = createBasicRole(RolesEnum.BASIC);
->>>>>>> jpa
-		
-		Set<UserRole> userRoles = new HashSet<>();
-		UserRole userRole = new UserRole(basicUser, basicRole);
-		userRoles.add(userRole);
-		
-		Role basicRole2 = createBasicRole(2, "ROLE_ADMIN");
-		UserRole userRole2 = new UserRole();
-		userRole2.setUser(basicUser);
-		userRole2.setRole(basicRole2);
-		userRoles.add(userRole2);
-		
-		basicUser.getUserRoles().addAll(userRoles);
-		
-		for (UserRole ur : userRoles) {
-			roleRepository.save(ur.getRole());
-		}
-		
-		basicUser = userRepository.save(basicUser);
-		
+		User basicUser = createUser();
 		User retriveUser = userRepository.findById(basicUser.getId()).orElse(null);
 		
 		Assert.assertNotNull(retriveUser);
@@ -117,8 +84,14 @@ public class RepositoryIntegrationTest {
 			System.out.println("******************* : " + ur);
 			Assert.assertNotNull(ur.getRole());
 			Assert.assertNotNull(ur.getRole().getId());			
-		}
-		
+		}		
+	}
+	
+	
+	@Test
+	public void testDeleteUser() {
+		User user = createUser();
+		userRepository.deleteById(user.getId());
 	}
 
 	/* private section */
@@ -136,23 +109,33 @@ public class RepositoryIntegrationTest {
 	/**
 	 * @return
 	 */
-<<<<<<< HEAD
-	private Role createBasicRole(int id, String name) {
-		Role role = new Role();
-		role.setId(id);
-		role.setName(name);
-=======
 	private Role createBasicRole(RolesEnum rolesEnum) {
 		Role role = new Role(rolesEnum);
->>>>>>> jpa
 		return role;
 	}
 
-	/**
-	 * 
-	 */
-	public RepositoryIntegrationTest() {
-		// TODO Auto-generated constructor stub
+	
+	private User createUser() {
+		
+		Plan basicPlan = createBasicPlan(PlansEnum.BASIC);
+		planRepository.save(basicPlan);
+		
+		User basicUser = UserUtils.createBasicUser();
+		basicUser.setPlan(basicPlan);
+		
+		Role basicRole = createBasicRole(RolesEnum.BASIC);
+		roleRepository.save(basicRole);
+		
+		Set<UserRole> userRoles = new HashSet<>();
+		UserRole userRole = new UserRole(basicUser, basicRole);
+		userRoles.add(userRole);
+		
+		basicUser.getUserRoles().addAll(userRoles);
+		User localUser = userRepository.save(basicUser);
+		
+		System.out.println("***************** Save user: " + localUser);
+		return localUser;
 	}
 
+	
 }

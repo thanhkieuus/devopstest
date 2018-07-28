@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,19 +28,31 @@ public class UserRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@ManyToOne(fetch=FetchType.LAZY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@Id
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="role_id")
 	private Role role;
 	
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
 
 	/**
-	 * 
+	 * @param id the id to set
 	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public UserRole() {
 	}
 
@@ -81,7 +95,6 @@ public class UserRole implements Serializable {
 		this.role = role;
 	}
 
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -89,11 +102,9 @@ public class UserRole implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
-
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -107,19 +118,10 @@ public class UserRole implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		UserRole other = (UserRole) obj;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
+		if (id != other.id)
 			return false;
 		return true;
 	}
-
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -127,14 +129,16 @@ public class UserRole implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UserRole [user=");
+		builder.append("UserRole [id=");
+		builder.append(id);
+		builder.append(", user=");
 		builder.append(user);
 		builder.append(", role=");
 		builder.append(role);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
+
 
 }

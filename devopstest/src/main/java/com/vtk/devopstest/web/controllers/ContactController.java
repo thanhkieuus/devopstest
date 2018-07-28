@@ -33,6 +33,7 @@ public class ContactController {
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contactGet(ModelMap model) {
+		LOG.info("********** contactGet: from '/contact' GET and return 'contact/contact'");
 		FeedbackPojo feedbackPojo = new FeedbackPojo();
 		model.addAttribute(ContactController.FEEDBACK_MODEL_KEY, feedbackPojo);
 		return ContactController.CONTACT_US_VIEW_NAME;
@@ -40,7 +41,7 @@ public class ContactController {
 
 	@RequestMapping(value = "/contact", method = RequestMethod.POST)
 	public String contactPost(@ModelAttribute(ContactController.FEEDBACK_MODEL_KEY) FeedbackPojo feedback) {
-		LOG.info("********** Feedback POJO content: {}", feedback);
+		LOG.info("********** contactPost: from 'contact' POST and return 'feedback', feedback POJO content: {}", feedback);
 		emailService.sendFeedbackEmail(feedback);
 		return ContactController.CONTACT_US_VIEW_NAME;
 	}

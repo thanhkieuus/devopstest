@@ -25,7 +25,7 @@ public class I18NService {
 	private MessageSource messageSource;
 
 	public String getMessage(String messageId) {
-		LOG.info("********  messageId {}", messageId);
+		LOG.info("********** getMessage: messageId: {}", messageId);
 		Locale local = LocaleContextHolder.getLocale();
 		return getMessage(messageId, local);
 	}

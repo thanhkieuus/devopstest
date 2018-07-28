@@ -29,9 +29,8 @@ public class SmtpMailService extends AbstractEmailService {
 	 */
 	@Override
 	public void sendGenericMapMessage(SimpleMailMessage message) {
-		LOG.debug("Seding mail for {}", message);
+		LOG.debug("********** sendGenericMapMessage: Seding mail for {}", message);
 		mailSender.send(message);
-		LOG.info("Email sent.");
 	}
 
 }

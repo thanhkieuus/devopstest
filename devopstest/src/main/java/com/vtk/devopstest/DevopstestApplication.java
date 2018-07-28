@@ -21,7 +21,7 @@ import com.vtk.devopstest.utils.UserUtils;
 @SpringBootApplication
 public class DevopstestApplication implements CommandLineRunner{
 
-	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DevopstestApplication.class);
 	
 	@Autowired
 	private UserService userService;
@@ -36,11 +36,16 @@ public class DevopstestApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
+		LOG.info("********** run: enter");
+		LOG.info("********** run: enter");
+		LOG.info("********** run: enter");
+		LOG.info("********** run: enter");
+		LOG.info("********** run: enter");
+		
 		User user = UserUtils.createBasicUser();
 		Set<UserRole> userRoles = new HashSet<>();
-		userRoles.add(new UserRole(user, new Role(RolesEnum.BASIC)));
-		LOG.debug("Creating user with username {}", user.getUsername());
-		userService.createUser(user, PlansEnum.BASIC, userRoles);
-		LOG.debug("User {} created", user.getUsername());
+		userRoles.add(new UserRole(user, new Role(RolesEnum.PRO)));
+		userService.createUser(user, PlansEnum.PRO, userRoles);
+	
 	}
 }

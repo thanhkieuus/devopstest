@@ -22,7 +22,7 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String login() {
 
-		LOG.info("************ Login...");
+		LOG.info("********** Login: from '/login' and return 'user/login'");
 		return LOGIN_VIEW_NAME;
 
 	}

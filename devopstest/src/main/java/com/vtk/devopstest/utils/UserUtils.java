@@ -21,7 +21,7 @@ public class UserUtils {
 	public static  User createBasicUser() {
 		
 		User user = new User();
-		user.setUsername("basicuser");
+		user.setUsername("user");
 		user.setPassword("password");
 		user.setEmail("mail@yahoo.com");
 		user.setFirstName("firstname");

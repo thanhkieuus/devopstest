@@ -4,6 +4,7 @@
 package com.vtk.devopstest.backend.persistence.domain.backend;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,13 +20,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author VK
  *
  */
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
 	/**
 	 * 
@@ -296,6 +299,77 @@ public class User implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
+	 */
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+		return authorities;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
+	 */
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
+	 */
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
+	 */
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [id=");
+		builder.append(id);
+		builder.append(", username=");
+		builder.append(username);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", firstName=");
+		builder.append(firstName);
+		builder.append(", lastName=");
+		builder.append(lastName);
+		builder.append(", phoneNumber=");
+		builder.append(phoneNumber);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append(", country=");
+		builder.append(country);
+		builder.append(", profileImageUrl=");
+		builder.append(profileImageUrl);
+		builder.append(", stripeCustomerId=");
+		builder.append(stripeCustomerId);
+		builder.append(", enabled=");
+		builder.append(enabled);
+		builder.append("]");
+		return builder.toString();
 	}
 
 	

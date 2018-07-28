@@ -1,0 +1,11 @@
+com.vtk.devopstest
+com.vtk.devopstest.backend.persistence.domain.backend
+com.vtk.devopstest.backend.persistence.repositories
+com.vtk.devopstest.backend.service
+com.vtk.devopstest.config
+com.vtk.devopstest.enums
+com.vtk.devopstest.test.integration
+com.vtk.devopstest.utils
+com.vtk.devopstest.web.controllers
+com.vtk.devopstest.web.domain.frontend
+com.vtk.devopstest.web.i18n

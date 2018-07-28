@@ -42,7 +42,10 @@ public class DevopstestApplication implements CommandLineRunner{
 		LOG.info("********** run: enter");
 		LOG.info("********** run: enter");
 		
-		User user = UserUtils.createBasicUser();
+		String username = "user1";
+		String email = "user1@email.com";
+		
+		User user = UserUtils.createBasicUser(username, email);
 		Set<UserRole> userRoles = new HashSet<>();
 		userRoles.add(new UserRole(user, new Role(RolesEnum.PRO)));
 		userService.createUser(user, PlansEnum.PRO, userRoles);

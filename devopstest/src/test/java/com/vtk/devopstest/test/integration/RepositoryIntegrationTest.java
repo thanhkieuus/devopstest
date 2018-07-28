@@ -8,7 +8,9 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,6 +46,8 @@ public class RepositoryIntegrationTest {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Rule public TestName testName = new TestName();
+	
 	@Before
 	public void init() {
 		Assert.assertNotNull(planRepository);
@@ -70,8 +74,10 @@ public class RepositoryIntegrationTest {
 	@Test
 	public void testCreateNewUser() {
 		
+		String username = testName.getMethodName();
+		String email = testName.getMethodName() + "@email.com";
 		
-		User basicUser = createUser();
+		User basicUser = createUser(username, email);
 		User retriveUser = userRepository.findById(basicUser.getId()).orElse(null);
 		
 		Assert.assertNotNull(retriveUser);
@@ -81,7 +87,7 @@ public class RepositoryIntegrationTest {
 		
 		Set<UserRole> retrieveUserRoles = retriveUser.getUserRoles();
 		for (UserRole ur : retrieveUserRoles) {
-			System.out.println("******************* : " + ur);
+			System.out.println("********** : " + ur);
 			Assert.assertNotNull(ur.getRole());
 			Assert.assertNotNull(ur.getRole().getId());			
 		}		
@@ -90,7 +96,11 @@ public class RepositoryIntegrationTest {
 	
 	@Test
 	public void testDeleteUser() {
-		User user = createUser();
+
+		String username = testName.getMethodName();
+		String email = testName.getMethodName() + "@email.com";
+		
+		User user = createUser(username, email);
 		userRepository.deleteById(user.getId());
 	}
 
@@ -115,12 +125,12 @@ public class RepositoryIntegrationTest {
 	}
 
 	
-	private User createUser() {
+	private User createUser(String username, String email) {
 		
 		Plan basicPlan = createBasicPlan(PlansEnum.BASIC);
 		planRepository.save(basicPlan);
 		
-		User basicUser = UserUtils.createBasicUser();
+		User basicUser = UserUtils.createBasicUser(username, email);
 		basicUser.setPlan(basicPlan);
 		
 		Role basicRole = createBasicRole(RolesEnum.BASIC);

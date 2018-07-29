@@ -49,6 +49,6 @@ public class DevopstestApplication implements CommandLineRunner{
 		Set<UserRole> userRoles = new HashSet<>();
 		userRoles.add(new UserRole(user, new Role(RolesEnum.PRO)));
 		userService.createUser(user, PlansEnum.PRO, userRoles);
-	
+		
 	}
 }

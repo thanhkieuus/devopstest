@@ -95,6 +95,7 @@ public class UserRole implements Serializable {
 		this.role = role;
 	}
 
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

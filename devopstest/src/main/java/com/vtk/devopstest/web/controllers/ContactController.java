@@ -31,6 +31,10 @@ public class ContactController {
 	@Autowired
 	EmailService emailService;
 
+	/**
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String contactGet(ModelMap model) {
 		LOG.info("********** contactGet: from '/contact' GET and return 'contact/contact'");

@@ -35,17 +35,8 @@ import com.vtk.devopstest.utils.UserUtils;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RepositoryIntegrationTest {
+public class UserIntegrationTest extends AbstractIntegrationTest{
 
-	@Autowired
-	private PlanRepository planRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
-	
 	@Rule public TestName testName = new TestName();
 	
 	@Before
@@ -57,7 +48,7 @@ public class RepositoryIntegrationTest {
 	
 	@Test
 	public void testCreateNewPlan() throws Exception {
-		Plan basicPlan = createBasicPlan(PlansEnum.BASIC);
+		Plan basicPlan = createPlan(PlansEnum.BASIC);
 		planRepository.save(basicPlan);
 		Plan retrivedPlan = planRepository.findById(PlansEnum.BASIC.getId()).orElse(null);
 		Assert.assertNotNull(retrivedPlan);
@@ -65,7 +56,7 @@ public class RepositoryIntegrationTest {
 	
 	@Test
 	public void testCreateNewRole() throws Exception {
-		Role basicRole = createBasicRole(RolesEnum.BASIC);
+		Role basicRole = createRole(RolesEnum.BASIC);
 		roleRepository.save(basicRole);
 		Role retrivedRole = roleRepository.findById(RolesEnum.BASIC.getId()).orElse(null);
 		Assert.assertNotNull(retrivedRole);
@@ -104,48 +95,4 @@ public class RepositoryIntegrationTest {
 		userRepository.deleteById(user.getId());
 	}
 
-	/* private section */
-
-
-	/**
-	 * @return
-	 */
-	private Plan createBasicPlan(PlansEnum plansEnum) {
-		Plan plan = new Plan(plansEnum);
-		return plan;
-	}
-
-
-	/**
-	 * @return
-	 */
-	private Role createBasicRole(RolesEnum rolesEnum) {
-		Role role = new Role(rolesEnum);
-		return role;
-	}
-
-	
-	private User createUser(String username, String email) {
-		
-		Plan basicPlan = createBasicPlan(PlansEnum.BASIC);
-		planRepository.save(basicPlan);
-		
-		User basicUser = UserUtils.createBasicUser(username, email);
-		basicUser.setPlan(basicPlan);
-		
-		Role basicRole = createBasicRole(RolesEnum.BASIC);
-		roleRepository.save(basicRole);
-		
-		Set<UserRole> userRoles = new HashSet<>();
-		UserRole userRole = new UserRole(basicUser, basicRole);
-		userRoles.add(userRole);
-		
-		basicUser.getUserRoles().addAll(userRoles);
-		User localUser = userRepository.save(basicUser);
-		
-		System.out.println("***************** Save user: " + localUser);
-		return localUser;
-	}
-
-	
 }

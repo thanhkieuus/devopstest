@@ -59,10 +59,10 @@ public class UserService {
 		
 		user.getUserRoles().addAll(userRoles);
 		
-		User localUser = userRepository.save(user);
+		user = userRepository.save(user);
 		
-		LOG.info("********** createUser: user created: " + localUser);
-		return localUser;
+		LOG.info("********** createUser: user created: {}", user);
+		return user;
 	}
 	
 	public void updateUserPassword(long userId, String password) {

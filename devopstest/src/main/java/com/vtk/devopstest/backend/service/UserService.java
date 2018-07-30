@@ -64,5 +64,11 @@ public class UserService {
 		LOG.info("********** createUser: user created: " + localUser);
 		return localUser;
 	}
+	
+	public void updateUserPassword(long userId, String password) {
+		password = passwordEncoder.encode(password);
+		userRepository.updateUserPassword(userId, password);
+		LOG.debug("Password updeded successfully for user id {}", userId);
+	}
 
 }

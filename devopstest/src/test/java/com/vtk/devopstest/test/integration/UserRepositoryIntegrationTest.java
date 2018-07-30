@@ -5,6 +5,7 @@ package com.vtk.devopstest.test.integration;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,7 +36,7 @@ import com.vtk.devopstest.utils.UserUtils;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserIntegrationTest extends AbstractIntegrationTest{
+public class UserRepositoryIntegrationTest extends AbstractIntegrationTest{
 
 	@Rule public TestName testName = new TestName();
 	
@@ -65,11 +66,8 @@ public class UserIntegrationTest extends AbstractIntegrationTest{
 	@Test
 	public void testCreateNewUser() {
 		
-		String username = testName.getMethodName();
-		String email = testName.getMethodName() + "@email.com";
-		
-		User basicUser = createUser(username, email);
-		User retriveUser = userRepository.findById(basicUser.getId()).orElse(null);
+		User user = createUser(testName);
+		User retriveUser = userRepository.findById(user.getId()).orElse(null);
 		
 		Assert.assertNotNull(retriveUser);
 		Assert.assertTrue(retriveUser.getId() != 0);
@@ -78,7 +76,7 @@ public class UserIntegrationTest extends AbstractIntegrationTest{
 		
 		Set<UserRole> retrieveUserRoles = retriveUser.getUserRoles();
 		for (UserRole ur : retrieveUserRoles) {
-			System.out.println("********** : " + ur);
+			System.out.println("********** testCreateNewUser: " + ur);
 			Assert.assertNotNull(ur.getRole());
 			Assert.assertNotNull(ur.getRole().getId());			
 		}		
@@ -87,12 +85,33 @@ public class UserIntegrationTest extends AbstractIntegrationTest{
 	
 	@Test
 	public void testDeleteUser() {
-
-		String username = testName.getMethodName();
-		String email = testName.getMethodName() + "@email.com";
 		
-		User user = createUser(username, email);
+		User user = createUser(testName);
 		userRepository.deleteById(user.getId());
+	}
+
+	@Test
+	public void testGetUserByEmail() {
+
+		User user = createUser(testName);
+		User retrieveUser = userRepository.findByEmail(user.getEmail());
+		Assert.assertNotNull(retrieveUser);
+		Assert.assertNotNull(retrieveUser.getId());
+	}
+
+	@Test
+	public void testUpdateUserPassword() {
+
+		User user = createUser(testName);
+		Assert.assertNotNull(user);
+		Assert.assertNotNull(user.getId());
+		
+		String newPassword = UUID.randomUUID().toString();
+		
+		userRepository.updateUserPassword(user.getId(), newPassword);
+		
+		user = userRepository.findById(user.getId()).orElse(null);
+		Assert.assertEquals(newPassword, user.getPassword());
 	}
 
 }

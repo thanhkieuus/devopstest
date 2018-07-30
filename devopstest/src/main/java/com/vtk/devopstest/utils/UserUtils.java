@@ -3,6 +3,8 @@
  */
 package com.vtk.devopstest.utils;
 
+import org.junit.rules.TestName;
+
 import com.vtk.devopstest.backend.persistence.domain.backend.User;
 
 /**
@@ -20,6 +22,9 @@ public class UserUtils {
 
 	public static User createBasicUser(String username, String email) {
 		
+		System.out.println("++++++++++");
+		System.out.println("++++++++++ UserUtils.createBasicUser: username and email:" + " " + username + ", " + email);
+		System.out.println("++++++++++");
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword("password");
@@ -32,6 +37,10 @@ public class UserUtils {
 		user.setDescription("A basic user");
 		user.setProfileImageUrl("http://haha.com");
 		return user;
+	}
+
+	public static User createBasicUser(TestName testName) {		
+		return createBasicUser(testName.getMethodName() + SmallRandomGengerator.getARandomNumber(), testName.getMethodName()+"@devopstest.com");
 	}
 
 	

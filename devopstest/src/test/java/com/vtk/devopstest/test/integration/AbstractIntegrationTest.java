@@ -16,8 +16,10 @@ import com.vtk.devopstest.backend.persistence.domain.backend.UserRole;
 import com.vtk.devopstest.backend.persistence.repositories.PlanRepository;
 import com.vtk.devopstest.backend.persistence.repositories.RoleRepository;
 import com.vtk.devopstest.backend.persistence.repositories.UserRepository;
+import com.vtk.devopstest.backend.service.UserService;
 import com.vtk.devopstest.enums.PlansEnum;
 import com.vtk.devopstest.enums.RolesEnum;
+import com.vtk.devopstest.utils.SmallRandomGengerator;
 import com.vtk.devopstest.utils.UserUtils;
 
 /**
@@ -34,6 +36,9 @@ public abstract class AbstractIntegrationTest {
 	
 	@Autowired
 	protected UserRepository userRepository;
+	
+	@Autowired
+	protected UserService userService;
 	
 
 	/**
@@ -54,7 +59,8 @@ public abstract class AbstractIntegrationTest {
 	}
 
 	
-	protected User createUser(String username, String email) {
+/**	
+ 		protected User createUser(String username, String email) {
 		
 		Plan basicPlan = createPlan(PlansEnum.BASIC);
 		planRepository.save(basicPlan);
@@ -72,12 +78,32 @@ public abstract class AbstractIntegrationTest {
 		basicUser.getUserRoles().addAll(userRoles);
 		User localUser = userRepository.save(basicUser);
 		
-		System.out.println("***************** Save user: " + localUser);
+		System.out.println("++++++++++ AbstractIntegrationTest.createUser: Save user: " + localUser);
 		return localUser;
 	}
 	
+
+
+*/
+	protected User createUser(String username, String email) {
+			
+		User user = UserUtils.createBasicUser(username, email);
+		
+		Set<UserRole> userRoles = new HashSet<>();
+		UserRole userRole = new UserRole(user, new Role(RolesEnum.BASIC));
+		userRoles.add(userRole);
+		
+		User createdUser = userService.createUser(user, PlansEnum.BASIC, userRoles);
+		
+		System.out.println("++++++++++ AbstractIntegrationTest.createUser: created user: " + createdUser);
+		return createdUser;
+	}
+
+	
+	
+	
 	protected User createUser(TestName testName) {
-		return createUser(testName.getMethodName(), testName.getMethodName() + "@devoptest.com");
+		return createUser(testName.getMethodName() + SmallRandomGengerator.getARandomNumber(), testName.getMethodName() + "@devoptest.com");
 	}
 
 	

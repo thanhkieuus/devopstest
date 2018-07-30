@@ -4,6 +4,7 @@
 package com.vtk.devopstest.backend.service;
 
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
 
 import com.vtk.devopstest.web.domain.frontend.FeedbackPojo;
 
@@ -11,6 +12,7 @@ import com.vtk.devopstest.web.domain.frontend.FeedbackPojo;
  * @author VK
  *
  */
+@Service
 public interface EmailService {
 
 	/**

@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.vtk.devopstest.web.i18n;
+package com.vtk.devopstest.backend.service;
 
 import java.util.Locale;
 
@@ -35,7 +35,7 @@ public class I18NService {
 	 * @param local
 	 * @return
 	 */
-	private String getMessage(String messageId, Locale local) {
+	public String getMessage(String messageId, Locale local) {
 		return messageSource.getMessage(messageId, null, local);
 	}
 }

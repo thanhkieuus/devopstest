@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.vtk.devopstest.web.i18n.I18NService;
+import com.vtk.devopstest.backend.service.I18NService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

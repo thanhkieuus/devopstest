@@ -3,9 +3,15 @@
  */
 package com.vtk.devopstest.utils;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.rules.TestName;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.vtk.devopstest.backend.persistence.domain.backend.User;
+import com.vtk.devopstest.web.controllers.ForgotMyPasswordController;
 
 /**
  * @author VK
@@ -41,6 +47,32 @@ public class UserUtils {
 
 	public static User createBasicUser(TestName testName) {		
 		return createBasicUser(testName.getMethodName() + SmallRandomGengerator.getARandomNumber(), testName.getMethodName()+"@devopstest.com");
+	}
+
+	/**
+	 * @param mockHttpServletRequest
+	 * @param userId
+	 * @param token
+	 * @return
+	 */
+	public static String createPasswordResetUrl(HttpServletRequest request, long userId,
+			String token) {
+		
+		String passwordResetUrl = 
+				request.getScheme() +
+						"://" +
+						request.getServerName() +
+						":" +
+						request.getServerPort() +
+						request.getContextPath() +
+						ForgotMyPasswordController.CHANGE_PASSWORD_PATH +
+						"?id=" +
+						userId +
+						"&token=" +
+						token;
+				
+		
+		return passwordResetUrl;
 	}
 
 	

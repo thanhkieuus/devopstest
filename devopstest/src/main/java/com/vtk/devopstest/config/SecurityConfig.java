@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.vtk.devopstest.backend.service.UserSecurityService;
+import com.vtk.devopstest.web.controllers.ForgotMyPasswordController;
 
 /**
  * @author VK
@@ -61,7 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/about/**",
 			"/contact/**",
 			"/error/**/*",
-			"/console/**"
+			"/console/**",
+			ForgotMyPasswordController.FORGOT_PASSWORD_URL_MAPPING
 	};
 
 	/*

@@ -3,8 +3,6 @@
  */
 package com.vtk.devopstest.web.controllers;
 
-import java.awt.Color;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vtk.devopstest.backend.persistence.domain.backend.PasswordResetToken;
 import com.vtk.devopstest.backend.persistence.domain.backend.User;
-import com.vtk.devopstest.backend.persistence.repositories.PasswordResetTokenRepository;
 import com.vtk.devopstest.backend.service.EmailService;
 import com.vtk.devopstest.backend.service.I18NService;
 import com.vtk.devopstest.backend.service.PasswordResetTokenService;

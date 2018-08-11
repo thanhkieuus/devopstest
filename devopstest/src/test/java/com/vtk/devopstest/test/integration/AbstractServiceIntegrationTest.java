@@ -15,6 +15,7 @@ import com.vtk.devopstest.backend.persistence.domain.backend.UserRole;
 import com.vtk.devopstest.backend.service.UserService;
 import com.vtk.devopstest.enums.PlansEnum;
 import com.vtk.devopstest.enums.RolesEnum;
+import com.vtk.devopstest.utils.SmallRandomGengerator;
 import com.vtk.devopstest.utils.UserUtils;
 
 /**
@@ -30,10 +31,13 @@ public abstract class AbstractServiceIntegrationTest {
 			
 		//Role role = new Role (RolesEnum.BASIC);	
 		Set<UserRole> userRoles = new HashSet<>();
-		User user = UserUtils.createBasicUser(testName);
+		User user = createBasicUser(testName);
 		userRoles.add(new UserRole(user, new Role(RolesEnum.BASIC)));
 		return userService.createUser(user, PlansEnum.BASIC, userRoles);
 	}
 	
+	public static User createBasicUser(TestName testName) {		
+		return UserUtils.createBasicUser(testName.getMethodName() + SmallRandomGengerator.getARandomNumber(), testName.getMethodName()+"@devopstest.com");
+	}
 
 }
